@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-background">
-         <img src="/images/main.PNG" alt="Background" />
+         <img src={`${import.meta.env.BASE_URL}images/main.PNG`} alt="Background" />
          <div className="hero-overlay"></div>
       </div>
       

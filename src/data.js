@@ -61,7 +61,7 @@ export const projects = [
     status: "In Progress (40%)",
     role: "Developer",
     outcome: "Improved contextual accuracy and faster response times.",
-    image: "/images/voice-assistant.png"
+    image: "images/voice-assistant.png"
   },
   {
     title: "AI Model for Food Recognition",
@@ -69,7 +69,7 @@ export const projects = [
     tech: ["CNN", "Python", "Deep Learning"],
     role: "Developer",
     outcome: "Achieved 95% visual feature learning and 85% better generalization across lighting conditions.",
-    image: "/images/food-recognition.png"
+    image: "images/food-recognition.png"
   }
 ];
 

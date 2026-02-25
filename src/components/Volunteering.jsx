@@ -5,10 +5,10 @@ import './Volunteering.css';
 
 const Volunteering = () => {
   const galleryImages = [
-    "/images/photo1.jpg",
-    "/images/photo2.JPG",
-    "/images/photo3.JPG",
-    "/images/photo4.jpg"
+    `${import.meta.env.BASE_URL}images/photo1.jpg`,
+    `${import.meta.env.BASE_URL}images/photo2.JPG`,
+    `${import.meta.env.BASE_URL}images/photo3.JPG`,
+    `${import.meta.env.BASE_URL}images/photo4.jpg`
   ];
 
   return (
