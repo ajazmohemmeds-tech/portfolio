@@ -9,10 +9,13 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import SocialSidebar from './components/SocialSidebar';
 import KaizenAssistant from './components/KaizenAssistant';
+import Loader from './components/Loader';
+import { AnimatePresence } from 'framer-motion';
 import './index.css';
 
 function App() {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -24,7 +27,11 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <>
+      <AnimatePresence>
+        {loading && <Loader setLoading={setLoading} />}
+      </AnimatePresence>
+      <div className="app">
       <Header theme={theme} toggleTheme={toggleTheme} />
       <SocialSidebar />
       <KaizenAssistant />
@@ -38,6 +45,7 @@ function App() {
       </main>
       <Contact />
     </div>
+    </>
   );
 }
 

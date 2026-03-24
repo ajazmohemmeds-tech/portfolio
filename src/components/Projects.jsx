@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { projects, research } from '../data';
 import { ExternalLink, Github, FileText } from 'lucide-react';
 import './Projects.css';
@@ -7,11 +8,26 @@ const Projects = () => {
   return (
     <section id="projects" className="section projects">
       <div className="container">
-        <h2 className="section-title">Projects & <span>Research</span></h2>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          Projects & <span>Research</span>
+        </motion.h2>
         
         <div className="projects-grid">
           {projects.map((project, index) => (
-            <div key={index} className="project-card">
+            <motion.div 
+              key={index} 
+              className="project-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+             onClick={() => { const url = project.githubLink || project.demoLink; if (url && url !== "#") window.open(url, "_blank"); } }>
               <div className="project-image">
                 {project.image ? (
                    <img src={project.image} alt={project.title} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
@@ -37,18 +53,33 @@ const Projects = () => {
                    <strong>Outcome:</strong> {project.outcome}
                 </div>
                 <div className="project-links">
-                  <a href={project.githubLink || "#"} target={project.githubLink ? "_blank" : undefined} rel="noopener noreferrer" className="link-btn"><Github size={16} /> Code</a>
-                  <a href={project.demoLink || "#"} target={project.demoLink ? "_blank" : undefined} rel="noopener noreferrer" className="link-btn"><ExternalLink size={16} /> Demo</a>
+                  <a href={project.githubLink || "#"} target={project.githubLink ? "_blank" : undefined} rel="noopener noreferrer" className="link-btn" onClick={(e) => e.stopPropagation()}><Github size={16} /> Code</a>
+                  <a href={project.demoLink || "#"} target={project.demoLink ? "_blank" : undefined} rel="noopener noreferrer" className="link-btn" onClick={(e) => e.stopPropagation()}><ExternalLink size={16} /> Demo</a>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="research-section">
-          <h3 className="subsection-title">Research Publications</h3>
+          <motion.h3 
+            className="subsection-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            Research Publications
+          </motion.h3>
           {research.map((paper, index) => (
-            <div key={index} className="research-card">
+            <motion.div 
+              key={index} 
+              className="research-card"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
               <div className="research-icon">
                 <FileText size={32} />
               </div>
@@ -62,7 +93,7 @@ const Projects = () => {
                   <strong>Authors:</strong> {paper.authors.join(", ")}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
