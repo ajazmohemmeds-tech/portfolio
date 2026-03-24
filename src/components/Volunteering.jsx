@@ -1,28 +1,20 @@
 import React, { useState } from 'react';
 import { volunteering } from '../data';
-import { Camera, ArrowRight, X } from 'lucide-react';
+import { Camera, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Volunteering.css';
 
 const Volunteering = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const featuredImages = [
-    `${import.meta.env.BASE_URL}images/photo1.jpg`,
-    `${import.meta.env.BASE_URL}images/photo2.JPG`,
-    `${import.meta.env.BASE_URL}images/photo3.JPG`,
-    `${import.meta.env.BASE_URL}images/photo4.jpg`
+  const allImages = [
+    { src: `${import.meta.env.BASE_URL}images/photo1.jpg`, title: "Event Capture 1" },
+    { src: `${import.meta.env.BASE_URL}images/photo2.JPG`, title: "Event Capture 2" },
+    { src: `${import.meta.env.BASE_URL}images/photo3.JPG`, title: "Event Capture 3" },
+    { src: `${import.meta.env.BASE_URL}images/photo4.jpg`, title: "Event Capture 4" },
+    { src: `${import.meta.env.BASE_URL}images/gallery_1.jpg`, title: "Gallery 1" },
+    { src: `${import.meta.env.BASE_URL}images/gallery_2.jpg`, title: "Gallery 2" }
   ];
-
-  const extraImages = [
-    `${import.meta.env.BASE_URL}images/gallery_1.jpg`,
-    `${import.meta.env.BASE_URL}images/gallery_2.jpg`,
-    `${import.meta.env.BASE_URL}images/gallery_3.jpg`,
-    `${import.meta.env.BASE_URL}images/gallery_4.jpg`,
-    `${import.meta.env.BASE_URL}images/gallery_5.jpg`
-  ];
-
-  const allImages = [...featuredImages, ...extraImages];
-  const displayedImages = isExpanded ? allImages : featuredImages;
 
   return (
     <section id="volunteering" className="section volunteering">
@@ -32,52 +24,52 @@ const Volunteering = () => {
         <div className="volunteering-content">
           <div className="volunteering-list">
              {volunteering.map((item, index) => (
-                <div key={index} className="vol-item">
+                <motion.div 
+                  key={index} 
+                  className="vol-item"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
                    <div className="vol-header">
                      <h3>{item.role}</h3>
                      <span className="vol-org">{item.organization}</span>
                    </div>
                    <p>{item.description}</p>
-                </div>
+                </motion.div>
              ))}
           </div>
 
-          <div className="media-gallery">
-            <div className="gallery-header">
-              <h3>Gallery</h3>
-              {isExpanded && (
-                <button className="btn-close-gallery" onClick={() => setIsExpanded(false)} title="Close gallery">
-                  <X size={20} />
-                </button>
-              )}
-            </div>
-            
-            <div className={`gallery-grid ${isExpanded ? 'expanded' : ''}`}>
-               {displayedImages.map((src, index) => (
-                 <div key={index} className="gallery-item fade-in">
-                   <img 
-                     src={src} 
-                     alt={`Gallery ${index + 1}`} 
-                     className="gallery-img"
-                     onError={(e) => {
-                       e.target.style.display = 'none';
-                       e.target.nextSibling.style.display = 'flex';
-                     }}
-                   />
-                   <div className="gallery-placeholder" style={{display: 'none'}}>
-                      <Camera size={24} />
-                      <span>Photo ${index + 1}</span>
-                   </div>
-                 </div>
-               ))}
-               
-               {!isExpanded && (
-                 <div className="gallery-item see-more" onClick={() => setIsExpanded(true)} title="See more photos">
-                    <div className="see-more-content">
-                      <ArrowRight size={24} />
-                    </div>
-                 </div>
-               )}
+          <div className="media-gallery-wrapper">
+            <h3>Gallery</h3>
+            <div className="hover-carousel">
+              {allImages.map((img, index) => (
+                <motion.div
+                  key={index}
+                  className="carousel-item"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  animate={{
+                    width: hoveredIndex === index ? "40%" : (hoveredIndex === null ? "16.6%" : "12%")
+                  }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <img src={img.src} alt={img.title} />
+                  <AnimatePresence>
+                    {hoveredIndex === index && (
+                      <motion.div 
+                        className="carousel-overlay"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <span>{img.title}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ))}
             </div>
             <p className="gallery-note">
               Capturing moments from university events and social drives.

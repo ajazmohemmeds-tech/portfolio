@@ -3,8 +3,8 @@ export const personalInfo = {
   tagline: "AI ENGINEER",
   email: "ajazmohemmeds@gmail.com",
   phone: "+91 7306587895",
-  location: "Bangalore",
-  linkedin: "https://www.linkedin.com/in/ajaz-mohemmed-12581727a",
+  location: "Kerala",
+  linkedin: "https://www.linkedin.com/in/ajaz-mohemmed-s-12581727a",
   github: "https://github.com/ajazmohemmeds-tech",
   education: [
     {
@@ -21,9 +21,26 @@ export const personalInfo = {
 };
 
 export const skills = {
-  technical: ["Python", "SQL", "MS Office", "Power BI"],
-  libraries: ["NumPy", "Pandas", "PyTorch", "Google Colab", "Scikit-learn", "OpenCV"],
-  soft: ["Emotional Intelligence", "Team Collaboration", "Adaptability", "Work Ethic", "Analytical Thinking"]
+  row1: [
+    { name: "Google Gemini", icon: "Brain" },
+    { name: "LangChain", icon: "Link" },
+    { name: "Python", icon: "Terminal" },
+    { name: "PyTorch", icon: "Zap" },
+    { name: "TensorFlow", icon: "Cpu" },
+    { name: "OpenCV", icon: "Camera" },
+    { name: "Scikit-Learn", icon: "Database" },
+    { name: "Pandas", icon: "BarChart" }
+  ],
+  row2: [
+    { name: "React.js", icon: "Layout" },
+    { name: "Node.js", icon: "Server" },
+    { name: "Framer Motion", icon: "Wind" },
+    { name: "MongoDB", icon: "Database" },
+    { name: "SQL", icon: "Table" },
+    { name: "Git", icon: "GitBranch" },
+    { name: "Anthropic API", icon: "Sparkles" },
+    { name: "Docker", icon: "Container" }
+  ]
 };
 
 export const experience = [
@@ -54,11 +71,21 @@ export const experience = [
 
 export const projects = [
   {
+    title: "ATELIER – Luxury Gifting E-Commerce Platform",
+    description: "A premium gifting website offering curated hampers, bespoke frames, and floral arrangements through a refined and elegant interface designed for a high-end shopping experience.",
+    tech: ["UI/UX", "E-Commerce", "Frontend", "Responsive Design", "Animations"],
+    role: "Developer",
+    outcome: "Delivered a visually rich, smooth, and immersive shopping experience with premium aesthetics and seamless user interaction",
+    image: "images/atelier.png",
+    demoLink: "https://atelier-com.vercel.app/",
+    githubLink: "https://github.com/ajazmohemmeds-tech/ATELIER.COM.git",
+  },
+
+  {
     title: "Personal Voice Assistant",
     description: "AI-powered voice assistant application integrating a Hugging Face chatbot for natural, context-aware conversations.",
     tech: ["NLP", "Hugging Face", "Python", "Speech-to-Text"],
-    status: "In Progress (40%)",
-    role: "Developer",
+    role: "AI Engineer",
     outcome: "Improved contextual accuracy and faster response times.",
     image: "images/voice-assistant.png"
   },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { personalInfo } from '../data';
 import './Header.css';
 
 const Header = ({ theme, toggleTheme }) => {
@@ -18,7 +19,7 @@ const Header = ({ theme, toggleTheme }) => {
           <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle Theme">
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-          <a href="mailto:hello@ajaz.com" className="btn-contact">hello@ajaz.com</a>
+          <a href={`mailto:${personalInfo.email}`} className="btn-contact">hello@ajaz.com</a>
         </div>
       </div>
     </header>
