@@ -11,11 +11,6 @@ export const personalInfo = {
       institution: "CHRIST (Deemed to be University), Bangalore",
       degree: "B.Tech in Artificial Intelligence Machine Learning",
       year: "2022 - 2026"
-    },
-    {
-      institution: "Puliyaparamb Higher Secondary School, Palakkad",
-      degree: "Higher Secondary",
-      year: ""
     }
   ]
 };

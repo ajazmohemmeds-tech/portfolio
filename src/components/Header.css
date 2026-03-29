@@ -23,7 +23,7 @@
 }
 
 .logo span {
-  color: #ff0055;
+  color: var(--text-primary);
 }
 
 .nav-menu {

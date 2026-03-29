@@ -60,38 +60,7 @@ const About = () => {
               </div>
             </motion.div>
             
-            <motion.div 
-              className="experience-list"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              <h3 className="about-subtitle">Experience</h3>
-              {experience.map((job, index) => (
-                <motion.div 
-                  key={index} 
-                  className="experience-card"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="exp-header">
-                    <h4>{job.role}</h4>
-                    <span className="exp-period">{job.period}</span>
-                  </div>
-                  <h5>{job.company} - {job.type}</h5>
-                  <ul className="exp-desc">
-                    {job.description.map((desc, i) => (
-                      <li key={i}>{desc}</li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+            </div>
           
           <div className="about-right-column">
             <motion.div 

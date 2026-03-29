@@ -4,13 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--bg-primary);
   padding: 8rem 0;
   overflow: hidden;
-}
-
-[data-theme='dark'] .hero-section {
-  background-color: #0B0B0B;
 }
 
 .hero-grid {
@@ -30,14 +26,10 @@
 .hero-intro {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-[data-theme='dark'] .hero-intro {
-  color: #888;
 }
 
 .hero-headline {
@@ -56,22 +48,14 @@
 }
 
 .hero-headline .bold {
-  color: #000;
-}
-
-[data-theme='dark'] .hero-headline .bold {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .hero-headline .outline {
   color: transparent;
-  -webkit-text-stroke: 1.5px #000;
-  text-stroke: 1.5px #000;
-}
-
-[data-theme='dark'] .hero-headline .outline {
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.3);
-  text-stroke: 1.5px rgba(255, 255, 255, 0.3);
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  text-stroke: 1.5px var(--text-primary);
+  opacity: 0.4;
 }
 
 .hero-btns-wrapper {
@@ -90,26 +74,15 @@
 }
 
 .btn-primary {
-  background: #000;
-  color: #fff;
-  border: 1px solid #000;
-}
-
-[data-theme='dark'] .btn-primary {
-  background: #fff;
-  color: #000;
-  border: 1px solid #fff;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
 }
 
 .btn-primary:hover {
-  background: #222;
+  opacity: 0.8;
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-[data-theme='dark'] .btn-primary:hover {
-  background: #eee;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
 }
 
 /* Image Wrapper Styling */
@@ -185,13 +158,13 @@
 }
 
 [data-theme="dark"] .btn-outline {
-  color: #fff;
+  color: var(--text-primary);
   border-color: rgba(255, 255, 255, 0.4);
 }
 
 .btn-outline:hover {
-  background: #000;
-  color: #fff;
+  background: var(--text-primary);
+  color: var(--bg-primary);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }

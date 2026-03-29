@@ -1,7 +1,7 @@
 /* Dark Luxury Theme for About Section */
 .about {
-  background-color: #0B0B0B;
-  color: #CFCFCF;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   position: relative;
   /* subtle noise texture */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
@@ -9,25 +9,17 @@
   overflow: hidden;
 }
 
-[data-theme='light'] .about {
-  background-color: #F8F9FA;
-  background-image: none;
-}
-
 .about .section-title {
   font-family: 'Inter', sans-serif;
   font-size: 3.5rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--text-primary);
   margin-bottom: 4rem;
 }
 
-[data-theme='light'] .about .section-title {
-  color: #111;
-}
-
 .about .section-title span {
-  color: #B8905B; /* Muted gold accent */
+  color: var(--text-primary);
+  opacity: 0.5;
 }
 
 /* Split Layout */
@@ -47,23 +39,19 @@
 .about-subtitle {
   font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
-  color: #B8905B;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   font-weight: 600;
-  border-left: 3px solid #B8905B;
+  border-left: 3px solid var(--text-primary);
   padding-left: 1rem;
 }
 
 .about-text p {
-  color: #CFCFCF;
+  color: var(--text-secondary);
   font-size: 1.1rem;
   line-height: 1.8;
   margin-bottom: 2.5rem;
   font-family: 'Inter', sans-serif;
-}
-
-[data-theme='light'] .about-text p {
-  color: #444;
 }
 
 /* Glassmorphism for text cards */
@@ -93,9 +81,9 @@
 /* Hover Animation: Scale + Glow */
 .education-item:hover, .experience-card:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.03), 0 0 30px rgba(184, 144, 91, 0.08);
-  border-color: rgba(184, 144, 91, 0.2);
-  background-color: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.03), 0 0 30px rgba(255, 255, 255, 0.05);
+  border-color: var(--text-primary);
+  background-color: var(--bg-secondary);
 }
 
 [data-theme='light'] .education-item:hover, [data-theme='light'] .experience-card:hover {
@@ -105,40 +93,22 @@
 
 /* Typography for cards */
 .education-item h5, .experience-card h4 {
-  color: #fff;
+  color: var(--text-primary);
   font-family: 'Inter', sans-serif;
   font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }
 
-[data-theme='light'] .education-item h5, [data-theme='light'] .experience-card h4 {
-  color: #111;
-}
-
 .education-item p, .experience-card h5 {
-  color: #CFCFCF;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
-[data-theme='light'] .education-item p, [data-theme='light'] .experience-card h5 {
-  color: #555;
-}
-
 .education-item span, .exp-period {
-  color: #B8905B;
+  color: var(--text-primary);
   font-size: 0.9rem;
-}
-
-.exp-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.exp-period {
-  background-color: rgba(184, 144, 91, 0.1);
+  background-color: var(--border);
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
 }
@@ -152,20 +122,16 @@
   position: relative;
   padding-left: 1.5rem;
   margin-bottom: 0.75rem;
-  color: #CFCFCF;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
-}
-
-[data-theme='light'] .exp-desc li {
-  color: #444;
 }
 
 .exp-desc li::before {
   content: '▹';
   position: absolute;
   left: 0;
-  color: #B8905B;
+  color: var(--text-primary);
 }
 
 /* Right Column - Image Portrait */

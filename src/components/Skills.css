@@ -1,7 +1,7 @@
 /* Skills Overhaul: Cinematic Marquee */
 .skills {
   position: relative;
-  background-color: #000;
+  background-color: var(--bg-primary);
   padding: 10rem 0;
   overflow: hidden;
 }
@@ -28,13 +28,13 @@
 .top-left {
   top: -20%;
   left: -10%;
-  background: radial-gradient(circle, rgba(123, 31, 162, 0.4), transparent);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .bottom-right {
   bottom: -20%;
   right: -10%;
-  background: radial-gradient(circle, rgba(30, 136, 229, 0.4), transparent);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .skills .container {
@@ -47,7 +47,7 @@
 .skills .section-title {
   text-align: center;
   margin-bottom: 6rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .skills-marquee-wrapper {
@@ -68,12 +68,12 @@
 
 .fade-left {
   left: 0;
-  background: linear-gradient(to right, #000 10%, transparent 100%);
+  background: linear-gradient(to right, var(--bg-primary) 10%, transparent 100%);
 }
 
 .fade-right {
   right: 0;
-  background: linear-gradient(to left, #000 10%, transparent 100%);
+  background: linear-gradient(to left, var(--bg-primary) 10%, transparent 100%);
 }
 
 .marquee-parallax {
@@ -100,10 +100,10 @@
   position: relative;
   padding: 1rem 2.2rem;
   border-radius: 9999px;
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: var(--bg-card);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   cursor: pointer;
   white-space: nowrap;
   transform-style: preserve-3d;
