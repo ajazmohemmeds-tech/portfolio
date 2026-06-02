@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { volunteering } from '../data';
 import { Camera, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Volunteering.css';
 
-const Volunteering = () => {
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const allImages = [
-    { src: `${import.meta.env.BASE_URL}images/photo1.jpg`, title: "Event Capture 1" },
-    { src: `${import.meta.env.BASE_URL}images/photo2.JPG`, title: "Event Capture 2" },
-    { src: `${import.meta.env.BASE_URL}images/photo3.JPG`, title: "Event Capture 3" },
-    { src: `${import.meta.env.BASE_URL}images/photo4.jpg`, title: "Event Capture 4" },
-    { src: `${import.meta.env.BASE_URL}images/gallery_1.jpg`, title: "Gallery 1" },
-    { src: `${import.meta.env.BASE_URL}images/gallery_2.jpg`, title: "Gallery 2" }
-  ];
-
+const Volunteering = ({ onViewGallery }) => {
   const mediaRole = volunteering.find(v => v.role === "Media Vice Head");
   const nssRole = volunteering.find(v => v.role === "Volunteer");
 
@@ -46,7 +34,7 @@ const Volunteering = () => {
                 
                 <button 
                   className="view-gallery-btn" 
-                  onClick={() => setIsGalleryOpen(true)}
+                  onClick={onViewGallery}
                 >
                   View Gallery <ArrowRight size={18} />
                 </button>
@@ -71,42 +59,6 @@ const Volunteering = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Gallery Modal */}
-      <AnimatePresence>
-        {isGalleryOpen && (
-          <motion.div 
-            className="gallery-modal-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="modal-content glass-liquid">
-              <button 
-                className="close-modal-btn" 
-                onClick={() => setIsGalleryOpen(false)}
-              >
-                <X size={24} />
-              </button>
-              
-              <div className="modal-gallery-grid">
-                {allImages.map((img, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="modal-gallery-item"
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <img src={img.src} alt={img.title} />
-                    <div className="modal-item-caption">{img.title}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };

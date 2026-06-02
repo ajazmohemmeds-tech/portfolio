@@ -13,6 +13,7 @@ import SocialSidebar from './components/SocialSidebar';
 import KaizenAssistant from './components/KaizenAssistant';
 import Loader from './components/Loader';
 import CertificateView from './components/CertificateView';
+import MediaGallery from './components/MediaGallery';
 import { AnimatePresence } from 'framer-motion';
 import './index.css';
 
@@ -39,6 +40,8 @@ function App() {
       <AnimatePresence mode="wait">
         {view === 'certificate' ? (
           <CertificateView key="cert" onBack={() => setView('home')} />
+        ) : view === 'gallery' ? (
+          <MediaGallery key="gallery" onBack={() => setView('home')} />
         ) : (
           !loading && (
             <div className="app" key="main">
@@ -52,7 +55,7 @@ function App() {
                 <Experience />
                 <Skills />
                 <Projects />
-                <Volunteering />
+                <Volunteering onViewGallery={() => setView('gallery')} />
                 <Certifications />
               </main>
               <Contact />
