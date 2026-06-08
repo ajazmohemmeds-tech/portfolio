@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Hero = () => {
+  const sectionRef = useRef(null);
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  useGSAP(() => {
+    gsap.to(sectionRef.current, {
+      scale: 0.95,
+      opacity: 0.6,
+      filter: "blur(10px)",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+  }, { scope: sectionRef });
+
   return (
-    <section id="home" className="hero-section">
+    <section id="home" className="hero-section" ref={sectionRef}>
       <div className="container hero-container">
         <div className="hero-grid">
           <motion.div 

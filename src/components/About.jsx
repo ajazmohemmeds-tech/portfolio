@@ -1,89 +1,143 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { personalInfo, experience } from '../data';
+import { personalInfo } from '../data';
 import './About.css';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  });
+  const textRef = useRef(null);
+  const aboutTextRef = useRef(null);
+  const imgRef = useRef(null);
 
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const text = `Building intelligent systems with clean design and real-world impact.`;
+  const aboutText = `I build intelligent systems, experiment with ideas, and turn complex problems into simple, powerful solutions that create real impact. My background spans AI development, multimodal interaction systems, and automated smart environments, all driven by a focus on clean design and practical excellence.
+
+I believe that technology should be as intuitive as it is powerful. Whether it's crafting a RAG-based knowledge assistant or a seamless e-commerce engine, I prioritize structure, performance, and a user-centered approach to every line of code.`;
+
+  useGSAP(() => {
+    // Parallax & scale out on scroll
+    gsap.to(sectionRef.current, {
+      scale: 0.95,
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "bottom bottom",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
+    // Reveal main text word by word
+    if (textRef.current) {
+        gsap.fromTo(textRef.current.children, 
+            { y: 50, opacity: 0 },
+            { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.05, 
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top 70%",
+              }
+            }
+        );
+    }
+
+    // Reveal paragraphs
+    if (aboutTextRef.current) {
+        gsap.fromTo(aboutTextRef.current.children, 
+            { y: 30, opacity: 0 },
+            { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.1,
+              duration: 1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: aboutTextRef.current,
+                start: "top 80%",
+              }
+            }
+        );
+    }
+    
+    // Reveal image
+    if (imgRef.current) {
+        gsap.fromTo(imgRef.current,
+            { scale: 0.8, opacity: 0 },
+            {
+                scale: 1, opacity: 1, duration: 1.2, ease: "expo.out",
+                scrollTrigger: {
+                    trigger: imgRef.current,
+                    start: "top 80%"
+                }
+            }
+        );
+    }
+
+  }, { scope: sectionRef });
 
   return (
-    <section id="about" className="section about" ref={sectionRef}>
+    <section 
+      id="about" 
+      className="section about" 
+      ref={sectionRef}
+    >
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-        >
-          About <span>Me</span>
-        </motion.h2>
-        
         <div className="about-split-layout">
           <div className="about-left-column">
-            <motion.div 
-              className="about-text"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              <h3 className="about-subtitle">My Background</h3>
-              <p>
-                I design and build intelligent systems that transform real-world data into actionable insights.<br/><br/>
-                A graduate in Artificial Intelligence and Machine Learning from Christ University, Bangalore, I focus on creating scalable, high-impact machine learning solutions using Python, TensorFlow, and PyTorch.
-              </p>
+            
+            <h2 className="animated-heading" ref={textRef}>
+                {text.split(" ").map((word, i) => (
+                    <span key={i} style={{ display: 'inline-block', marginRight: '0.3em' }}>{word}</span>
+                ))}
+            </h2>
+
+            <div className="about-text" ref={aboutTextRef}>
+              <p>{aboutText.split('\n\n')[0]}</p>
+              <br />
+              <p>{aboutText.split('\n\n')[1]}</p>
               
               <div className="education-list">
                 <h4>Education</h4>
                 {personalInfo.education.map((edu, index) => (
-                  <motion.div 
+                  <div 
                     key={index} 
                     className="education-item"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    viewport={{ once: true }}
                   >
                     <h5>{edu.degree}</h5>
                     <p>{edu.institution}</p>
                     <span>{edu.year}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
-            
             </div>
+            
+          </div>
           
           <div className="about-right-column">
-            <motion.div 
+            <div 
               className="portrait-wrapper"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-              viewport={{ once: true }}
+              ref={imgRef}
             >
-              <motion.div className="portrait-inner" style={{ y: imgY }}>
+              <div className="portrait-inner reveal">
                 <img 
                   src={`${import.meta.env.BASE_URL}images/about_portrait.jpg`} 
                   alt="Ajaz Portrait" 
                   className="about-portrait"
                   onError={(e) => {
-                    // Fallback to an existing image if the user hasn't uploaded the portrait yet
                     e.target.onerror = null; 
                     e.target.src = `${import.meta.env.BASE_URL}images/photo2.JPG`;
                   }}
                 />
-              </motion.div>
+              </div>
               <div className="portrait-overlay"></div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

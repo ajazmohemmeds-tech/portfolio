@@ -158,6 +158,12 @@
   position: absolute;
   top: -10%;
   left: 0;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  transition: clip-path 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.portrait-inner.reveal {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .about-portrait {
@@ -208,3 +214,63 @@
     background: linear-gradient(to top, #F8F9FA 0%, rgba(248, 249, 250, 0.3) 50%, transparent 100%);
   }
 }
+
+/* Satin White Override for About Section */
+.satin-white-bg {
+  background-color: #fafafa !important; /* Satin white */
+  background-image: none !important;
+  color: #1a1a1a !important;
+}
+
+.satin-white-bg .animated-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+}
+
+.satin-white-bg .about-text p {
+  color: #444 !important;
+  font-size: 1.15rem;
+}
+
+.satin-white-bg .education-list h4 {
+  color: #111;
+}
+
+.satin-white-bg .education-item {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.satin-white-bg .education-item:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-color: #111 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+
+.satin-white-bg .education-item h5 {
+  color: #1a1a1a !important;
+}
+
+.satin-white-bg .education-item span {
+  color: #1a1a1a !important;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.satin-white-bg .education-item p {
+  color: #555 !important;
+}
+
+.satin-white-bg .portrait-overlay.satin-overlay {
+  background: linear-gradient(to right, #fafafa 0%, rgba(250, 250, 250, 0.5) 40%, transparent 100%) !important;
+}
+
+@media (max-width: 968px) {
+  .satin-white-bg .portrait-overlay.satin-overlay {
+    background: linear-gradient(to top, #fafafa 0%, rgba(250, 250, 250, 0.3) 50%, transparent 100%) !important;
+  }
+}
+

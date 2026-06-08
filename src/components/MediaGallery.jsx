@@ -1,76 +1,90 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Camera, ExternalLink } from 'lucide-react';
+import { X } from 'lucide-react';
 import './MediaGallery.css';
 
 const MediaGallery = ({ onBack }) => {
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const galleryImages = [
-    { src: `${import.meta.env.BASE_URL}images/photo1.jpg`, title: "Tech Event Photography", category: "Event" },
-    { src: `${import.meta.env.BASE_URL}images/photo2.JPG`, title: "CUESTIC Media Capture", category: "Editorial" },
-    { src: `${import.meta.env.BASE_URL}images/photo3.JPG`, title: "University Milestone", category: "Event" },
-    { src: `${import.meta.env.BASE_URL}images/photo4.jpg`, title: "Visual Storytelling", category: "Creative" },
-    { src: `${import.meta.env.BASE_URL}images/gallery_1.jpg`, title: "Action Shot 01", category: "Production" },
-    { src: `${import.meta.env.BASE_URL}images/gallery_2.jpg`, title: "Perspective Analysis", category: "Technique" }
+  const images = [
+    { 
+      src: `${import.meta.env.BASE_URL}images/photo1.jpg`, 
+      title: "Leadership Recognition", 
+      subtitle: "Recognised by the HOD for contribution to the media team" 
+    },
+    { 
+      src: `${import.meta.env.BASE_URL}images/photo2.JPG`, 
+      title: "The Pillars", 
+      subtitle: "Core team - the team behind it all" 
+    },
+    { 
+      src: `${import.meta.env.BASE_URL}images/photo3.JPG`, 
+      title: "Academic Synergy", 
+      subtitle: "Students & Faculty - learning, building and delivering together" 
+    },
+    { 
+      src: `${import.meta.env.BASE_URL}images/photo4.jpg`, 
+      title: "Excellence Award", 
+      subtitle: "Media execution - awarded by Col. Jai Govind for excellence in media execution." 
+    },
+    { 
+      src: `${import.meta.env.BASE_URL}images/gallery_1.jpg`, 
+      title: "Executive Appointment", 
+      subtitle: "Appointed as Media Vice Head - trusted to lead, create and deliver." 
+    },
+    { 
+      src: `${import.meta.env.BASE_URL}images/gallery_2.jpg`, 
+      title: "THE BOYS", 
+      subtitle: "Creative brotherhood in media." 
+    }
   ];
 
   return (
     <motion.div 
-      className="gallery-page-container"
+      className="gallery-page-wrapper"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className="gallery-nav">
-        <button onClick={onBack} className="btn-back-home">
-          <ArrowLeft size={20} /> Back to Portfolio
-        </button>
-        <div className="gallery-header-info">
-          <Camera size={32} className="header-icon" />
-          <div>
-            <h1>Media <span>Gallery</span></h1>
-            <p>Visual Storytelling & Event Photography Archive</p>
-          </div>
+      <div className="gallery-sticky-header">
+        <div className="gallery-header-text">
+          <h2 className="gallery-title">Media Gallery</h2>
+          <p className="gallery-subtitle">CUESTIC (Christ University)</p>
         </div>
+        
+        <button onClick={onBack} className="gallery-close-btn group">
+          <span className="gallery-close-text">Back to Portfolio</span>
+          <X size={24} className="gallery-close-icon" />
+        </button>
       </div>
 
-      <div className="container">
-        <div className="gallery-main-grid">
-          {galleryImages.map((img, index) => (
-            <motion.div 
-              key={index} 
-              className="gallery-card glass-liquid"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+      <div className="gallery-content-area">
+        <div className="gallery-grid">
+          {images.map((image, index) => (
+            <motion.div
+              key={index}
+              className="gallery-image-card group"
+              initial={{ y: 50, opacity: 0, scale: 0.9 }}
+              whileInView={{ y: 0, opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
               viewport={{ once: true }}
             >
-              <div className="card-image-wrapper">
-                <img src={img.src} alt={img.title} />
-                <div className="card-overlay">
-                  <span className="category-tag">{img.category}</span>
-                </div>
-              </div>
-              <div className="card-details">
-                <h3>{img.title}</h3>
-                <div className="card-meta">
-                   <span>Project Archive</span>
-                   <ExternalLink size={14} />
-                </div>
+              <img
+                src={image.src}
+                alt={image.title}
+                className="gallery-img"
+              />
+              <div className="gallery-img-overlay">
+                <h4 className="gallery-img-title">{image.title}</h4>
+                <p className="gallery-img-subtitle">{image.subtitle}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
-
-      <footer className="gallery-simple-footer">
-        <p>© 2025 Ajaz Mohemmed S | Media Vice Head Portfolio</p>
-      </footer>
     </motion.div>
   );
 };

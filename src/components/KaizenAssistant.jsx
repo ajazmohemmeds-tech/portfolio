@@ -52,7 +52,7 @@ const generateLocalResponse = (input) => {
   }
 
   // Ongoing Research (Secure Voice AI)
-  if (text.match(/ongoing|current research|secure voice|offline-first|privacy|multimodal/)) {
+  if (text.match(/ongoing|current|secure voice|offline-first|privacy|multimodal/)) {
     return KNOWLEDGE.ongoing_research;
   }
 
@@ -62,7 +62,7 @@ const generateLocalResponse = (input) => {
   }
 
   // Experience / Internships
-  if (text.match(/experience|work|intern|internship|cognifyz|trizlabs/)) {
+  if (text.match(/experience|\bwork\b|intern|internship|cognifyz|trizlabs/)) {
     return KNOWLEDGE.experience;
   }
 
@@ -92,13 +92,13 @@ const generateLocalResponse = (input) => {
   }
 
   // Fallback
-  return "That's a great question! While I can't generate a dynamic answer for that right now, I highly recommend asking me to Explain the NORA project, tell you about his Diffusion Research, or list his AI System Design skills!";
+  return "That's a great question! While I can't generate a dynamic answer for that right now I highly recommend asking me to Explain the NORA project tell you about his Diffusion Research or list his AI System Design skills!";
 };
 
 const KaizenAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: "Hello! 👋 I'm Kaizen, Ajaz's personal AI representative. I'm here to help visitors, recruiters, and collaborators learn about his AI projects, diffusion research, and engineering skills. How can I help you today?", type: 'message' }
+    { role: 'assistant', text: "Hello! 👋 I'm Kaizen Ajaz's personal AI representative. I'm here to help visitors recruiters and collaborators learn about his AI projects diffusion research and engineering skills. How can I help you today?", type: 'message' }
   ]);
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
@@ -107,6 +107,19 @@ const KaizenAssistant = () => {
   
   // Retaining the original icon variable but using NORA context
   const kaizenIcon = `${import.meta.env.BASE_URL}images/kaizen_icon.png`;
+
+  // Handle Cmd+K or Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -134,34 +147,32 @@ const KaizenAssistant = () => {
     }, 900);
 
     setTimeout(() => {
-      const responseText = generateLocalResponse(text);
+      // Remove hyphens and commas from the response text
+      const rawResponse = generateLocalResponse(text);
+      const cleanResponse = rawResponse.replace(/[,-]/g, '');
       setThoughtSteps(prev => prev.map(s => s.id === 3 ? { ...s, status: 'complete' } : s));
       
       setTimeout(() => {
-        setMessages(prev => [...prev, { role: 'assistant', text: responseText, type: 'message' }]);
+        setMessages(prev => [...prev, { role: 'assistant', text: cleanResponse, type: 'message' }]);
         setIsThinking(false);
         setThoughtSteps([]);
       }, 400);
     }, 1400);
   };
 
+  // If not open, render nothing since trigger button is removed
+  if (!isOpen) return null;
+
   return (
     <div className={`kaizen-widget ${isOpen ? 'open' : ''}`}>
-      {!isOpen && (
-        <button className="kaizen-trigger" onClick={() => setIsOpen(true)}>
-          <img src={kaizenIcon} alt="Kaizen" className="kaizen-icon-img brain-icon" />
-          <span>Ask Kaizen</span>
-        </button>
-      )}
-      {isOpen && (
-        <div className="kaizen-chat-window">
-          <div className="kaizen-header">
-            <div className="kaizen-title">
-              <img src={kaizenIcon} alt="Kaizen" className="kaizen-icon-img small" />
-              <span>Ask Kaizen</span>
-            </div>
-            <button className="kaizen-close" onClick={() => setIsOpen(false)}><X size={20} /></button>
+      <div className="kaizen-chat-window">
+        <div className="kaizen-header">
+          <div className="kaizen-title">
+            <img src={kaizenIcon} alt="Kaizen" className="kaizen-icon-img small" />
+            <span>Ask Kaizen</span>
           </div>
+          <button className="kaizen-close" onClick={() => setIsOpen(false)}><X size={20} /></button>
+        </div>
 
           <div className="kaizen-messages">
             {messages.map((msg, i) => (
@@ -205,8 +216,7 @@ const KaizenAssistant = () => {
             />
             <button type="submit" disabled={!input.trim() || isThinking}><Send size={18} /></button>
           </form>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
